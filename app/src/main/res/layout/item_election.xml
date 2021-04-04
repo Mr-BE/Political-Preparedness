@@ -21,9 +21,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/small_spacing"
-            android:layout_marginTop="@dimen/normal_space"
-            android:textSize="24sp"
+            android:layout_marginTop="@dimen/small_spacing"
+            android:text="@{election.name}"
             android:textStyle="bold"
+            android:textSize="20sp"
             tools:text="Wisconsin Election" />
 
         <TextView
@@ -31,7 +32,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/small_spacing"
-            android:layout_marginTop="@dimen/small_spacing"
+            android:text="@{election.electionDay.toGMTString()}"
             android:textSize="18sp"
             tools:text="2021-04-06" />
     </LinearLayout>

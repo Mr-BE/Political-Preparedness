@@ -18,6 +18,7 @@ class CivicRepository(private val electionDao: ElectionDao) {
     suspend fun refreshElection() {
         try {
             withContext(Dispatchers.IO) {
+                Timber.d("Election network refresh called")
                 val networkResult = CivicsApi.retrofitService.getElections().await()
                 electionDao.retrieveElections(networkResult.elections)
                 Timber.d("Election network refresh. value -> $networkResult")

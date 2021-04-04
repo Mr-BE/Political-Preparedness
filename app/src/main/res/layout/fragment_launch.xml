@@ -3,16 +3,51 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/frameLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context="com.example.android.politicalpreparedness.MainActivity">
 
-        <!-- TODO: Add image for home screen logo. -->
 
-        <!-- TODO: Add Button to navigate to upcoming elections. -->
+        <ImageView
+            android:id="@+id/ballot_logo_view"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="@dimen/normal_space"
+            android:layout_marginEnd="@dimen/normal_space"
+            android:contentDescription="@string/political_preparedness_logo_ballot"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ballot_logo" />
 
-        <!-- TODO: Add Button to navigate to representatives. -->
+        <Button
+            android:id="@+id/find_reps_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/normal_space"
+            android:background="@color/colorAccent"
+            android:text="@string/find_my_reps_text"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/ballot_logo_view"
+            app:layout_constraintStart_toStartOf="@+id/ballot_logo_view" />
+
+        <Button
+            android:id="@+id/upcoming_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/small_spacing"
+            android:background="@color/colorAccent"
+            android:text="@string/upcoming_election"
+            app:layout_constraintBottom_toTopOf="@+id/find_reps_button"
+            app:layout_constraintEnd_toEndOf="@+id/ballot_logo_view"
+            app:layout_constraintStart_toStartOf="@+id/ballot_logo_view" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

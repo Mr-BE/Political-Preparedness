@@ -3,6 +3,7 @@
     <dimen name="default_padding">8dp</dimen>
     <dimen name="small_spacing">8dp</dimen>
     <dimen name="normal_space">16dp</dimen>
+    <dimen name="header_text">30sp</dimen>
 
     <!-- TODO: Add necessary dimension values -->s
 
