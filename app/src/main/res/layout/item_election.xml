@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="election"
+            type="com.example.android.politicalpreparedness.network.models.Election" />
+
+    </data>
+
+    <LinearLayout
+        android:id="@+id/item_election_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/item_election_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/small_spacing"
+            android:layout_marginTop="@dimen/normal_space"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            tools:text="Wisconsin Election" />
+
+        <TextView
+            android:id="@+id/item_election_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/small_spacing"
+            android:layout_marginTop="@dimen/small_spacing"
+            android:textSize="18sp"
+            tools:text="2021-04-06" />
+    </LinearLayout>
+</layout>

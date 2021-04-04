@@ -17,8 +17,18 @@ interface ElectionDao {
 
 
     //COMPLETED: Add select all election query
+    @Query("SELECT * FROM election_table WHERE Saved = 1")
+    fun getSavedElections(): LiveData<List<Election>?>
+
+    //COMPLETED: Add select all election query
     @Query("SELECT * FROM election_table")
     fun getElections(): LiveData<List<Election>?>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun retrieveElections(elections: List<Election>)
+
+    @Update
+    fun updateElection(election: Election)
 
     //COMPLETED: Add delete query
     @Query("DELETE FROM election_table where electionDay =:day")

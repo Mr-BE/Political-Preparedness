@@ -43,6 +43,7 @@ android {
 }
 
 dependencies {
+
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     // Kotlin
@@ -82,6 +83,9 @@ dependencies {
     implementation "androidx.room:room-ktx:$version_room"
     testImplementation 'org.junit.jupiter:junit-jupiter'
     kapt "androidx.room:room-compiler:$version_room"
+
+    //Timber
+    implementation "com.jakewharton.timber:timber:$version_timber"
 
     // Location
     implementation "com.google.android.gms:play-services-location:$version_play_services_location"
