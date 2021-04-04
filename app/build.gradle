@@ -33,6 +33,13 @@ android {
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
+
+    sourceSets{
+        main { java.srcDirs = ['src/main/java'] }
+        test { java.srcDirs = ['src/test/java'] }
+        androidTest { java.srcDirs = ['src/androidTest/java'] }
+    }
+
 }
 
 dependencies {
@@ -72,6 +79,8 @@ dependencies {
 
     //Room
     implementation "androidx.room:room-runtime:$version_room"
+    implementation "androidx.room:room-ktx:$version_room"
+    testImplementation 'org.junit.jupiter:junit-jupiter'
     kapt "androidx.room:room-compiler:$version_room"
 
     // Location

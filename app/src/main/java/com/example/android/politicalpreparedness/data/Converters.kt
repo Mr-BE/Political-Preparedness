@@ -1,4 +1,4 @@
-package com.example.android.politicalpreparedness.database
+package com.example.android.politicalpreparedness.data
 
 import androidx.room.TypeConverter
 import java.util.*
