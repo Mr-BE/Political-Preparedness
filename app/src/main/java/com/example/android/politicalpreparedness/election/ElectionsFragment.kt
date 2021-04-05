@@ -55,12 +55,7 @@ class ElectionsFragment : Fragment() {
         //COMPLETED: Initiate recycler adapters
 
         //COMPLETED: Populate recycler adapters
-        electionViewModel.upcomingElectionItems.observe(viewLifecycleOwner, { electionList ->
-            electionList.let {
-//                upcomingAdapter.submitList(electionList)
-            }
 
-        })
         binding.upcomingElectionsList.adapter = upcomingAdapter
 
         //COMPLETED: Link elections to voter info
@@ -84,10 +79,4 @@ class ElectionsFragment : Fragment() {
 
     //TODO: Refresh adapters when fragment loads
 
-}
-
-@BindingAdapter("listData")
-fun bindRecyclerView(recyclerView: RecyclerView, data: List<Election>?) {
-    val adapter = recyclerView.adapter as ElectionListAdapter
-    adapter.submitList(data)
 }

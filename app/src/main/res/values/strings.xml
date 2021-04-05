@@ -6,6 +6,11 @@
     <string name="upcoming_election">Upcoming Elections</string>
     <string name="upcoming_elections">Upcoming Elections</string>
     <string name="saved_elections">Saved Elections</string>
+    <string name="election_information">Election Information</string>
+    <string name="state">State:</string>
+    <string name="view_state_locations">View state locations</string>
+    <string name="follow_election">Follow Election</string>
+    <string name="unfollow_election">Unfollow Election</string>
 
     <!-- TODO: Add necessary string values -->
 

@@ -13,7 +13,7 @@ interface ElectionDao {
 
     //COMPLETED: Add select single election query
     @Query("SELECT * FROM election_table where id = :electionId")
-    suspend fun getElectionById(electionId: String): Election?
+    suspend fun getElectionById(electionId: Int): Election?
 
 
     //COMPLETED: Add select all election query

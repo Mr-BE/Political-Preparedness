@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import com.example.android.politicalpreparedness.data.ElectionDao
 import com.example.android.politicalpreparedness.network.CivicsApi
 import com.example.android.politicalpreparedness.network.models.Election
+import com.example.android.politicalpreparedness.network.models.VoterInfoResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import timber.log.Timber
@@ -13,13 +14,15 @@ class CivicRepository(private val electionDao: ElectionDao) {
     val electionList: LiveData<List<Election>?> = electionDao.getElections()
     val savedElectionList: LiveData<List<Election>?> = electionDao.getSavedElections()
 
+    //voter info
+    var voterInfo: VoterInfoResponse? = null
 
     //refresh election content
     suspend fun refreshElection() {
         try {
             withContext(Dispatchers.IO) {
                 Timber.d("Election network refresh called")
-                val networkResult = CivicsApi.retrofitService.getElections().await()
+                val networkResult = CivicsApi.retrofitService.getElectionsAsync().await()
                 electionDao.retrieveElections(networkResult.elections)
                 Timber.d("Election network refresh. value -> $networkResult")
             }
@@ -27,4 +30,32 @@ class CivicRepository(private val electionDao: ElectionDao) {
             Timber.e("Election network refresh failed. Reason -> ${error.message}")
         }
     }
+
+    //Get specific election object
+    suspend fun getElectionById(electionId: Int): Election? {
+        return electionDao.getElectionById(electionId)
+    }
+
+    //update election to indicate if saved or not
+    suspend fun updateElection(election: Election) {
+        withContext(Dispatchers.IO) {
+            electionDao.updateElection(election)
+        }
+
+    }
+
+    //get voter info
+    suspend fun getVoterInfo(address: String, electionId: Int): VoterInfoResponse? {
+
+        try {
+            withContext(Dispatchers.IO) {
+                voterInfo = CivicsApi.retrofitService
+                        .getVoterInfoAsync(address, electionId).await()
+            }
+        } catch (error: Exception) {
+            Timber.e("Error getting voter info: Reason -> ${error.message}")
+        }
+        return voterInfo
+    }
+
 }
