@@ -64,11 +64,11 @@ class ElectionsFragment : Fragment() {
                     .navigate(ElectionsFragmentDirections.actionElectionsFragmentToVoterInfoFragment(election))
         })
 
-        electionViewModel.savedElectionItems.observe(viewLifecycleOwner, { savedElectionList ->
-            savedElectionList.let {
-                saveAdapter.submitList(savedElectionList)
-            }
-        })
+//        electionViewModel.savedElectionItems.observe(viewLifecycleOwner, { savedElectionList ->
+//            savedElectionList.let {
+//                saveAdapter.submitList(savedElectionList)
+//            }
+//        })
         binding.savedElectionsList.adapter = saveAdapter
 
 
