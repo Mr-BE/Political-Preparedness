@@ -2,11 +2,18 @@ package com.example.android.politicalpreparedness.election
 
 import androidx.lifecycle.*
 import com.example.android.politicalpreparedness.data.ElectionDao
+import com.example.android.politicalpreparedness.network.CivicsApi
+import com.example.android.politicalpreparedness.network.models.Division
 import com.example.android.politicalpreparedness.network.models.Election
 import com.example.android.politicalpreparedness.network.models.VoterInfoResponse
 import com.example.android.politicalpreparedness.repository.CivicRepository
+import com.example.android.politicalpreparedness.utils.getAddressFromStateCode
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
+@ExperimentalCoroutinesApi
 class VoterInfoViewModel(private val dataSource: ElectionDao) : ViewModel() {
 
     //data entry point
@@ -31,16 +38,24 @@ class VoterInfoViewModel(private val dataSource: ElectionDao) : ViewModel() {
         get() = _infoLink
 
     init {
-//        setVoterInfo()
-
+//        getVoterInfo()
     }
 
     //get voter info from repo
-    fun getVoterInfo(address: String, electionId: Int) {
+    fun getVoterInfo() {
         viewModelScope.launch {
-            _voterInfo.value = repo.getVoterInfo(address, electionId)
+            _voterInfo.value = repo.getVoterInfo(getAddressFromStateCode(_electionReceived.value?.division?.state
+                    ?: ""),
+                    _electionReceived.value?.id!!)
         }
     }
+//    @ExperimentalCoroutinesApi
+//    suspend fun getVoterInfo() = withContext(Dispatchers.IO){
+//        val result = CivicsApi.retrofitService.getVoterInfoAsync(getDivisionAdr(electionReceived.value?.division!!), electionReceived.value!!.id)
+//        if (result.isCompleted) {
+//            _voterInfo.value = result.getCompleted()
+//        }
+//    }
 
     //Get election info to display by election id
     fun getElectionById(election: Election) {
@@ -70,11 +85,7 @@ class VoterInfoViewModel(private val dataSource: ElectionDao) : ViewModel() {
         _infoLink.value = url
     }
 
-    //set voter info
-//    fun setVoterInfo() {
-//        _voterInfo.value = repo.voterInfo.value
-//    }
-//
+
     //TODO: cont'd -- Populate initial state of save button to reflect proper action based on election saved status
 
     /**

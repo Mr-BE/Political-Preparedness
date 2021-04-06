@@ -1,6 +1,7 @@
 package com.example.android.politicalpreparedness.repository
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.example.android.politicalpreparedness.data.ElectionDao
 import com.example.android.politicalpreparedness.network.CivicsApi
 import com.example.android.politicalpreparedness.network.models.Election
@@ -15,7 +16,7 @@ class CivicRepository(private val electionDao: ElectionDao) {
     val savedElectionList: LiveData<List<Election>?> = electionDao.getSavedElections()
 
     //voter info
-    var voterInfo: VoterInfoResponse? = null
+    var voterInfo = MutableLiveData<VoterInfoResponse>()
 
     //refresh election content
     suspend fun refreshElection() {
@@ -49,13 +50,15 @@ class CivicRepository(private val electionDao: ElectionDao) {
 
         try {
             withContext(Dispatchers.IO) {
-                voterInfo = CivicsApi.retrofitService
+                val response = CivicsApi.retrofitService
                         .getVoterInfoAsync(address, electionId).await()
+                voterInfo.postValue(response)
             }
         } catch (error: Exception) {
+            error.printStackTrace()
             Timber.e("Error getting voter info: Reason -> ${error.message}")
         }
-        return voterInfo
+        return voterInfo.value
     }
 
 }

@@ -64,6 +64,7 @@
             android:layout_height="wrap_content"
             android:text="@string/view_state_locations"
             android:textColor="@color/colorAccent"
+            android:onClick="@{() -> viewModel.getSupportUrl(viewModel.voterInfo.state[0].electionAdministrationBody.votingLocationFinderUrl)}"
             android:textStyle="italic|bold"
             app:layout_constraintTop_toBottomOf="@id/state_header"
             app:layout_constraintStart_toEndOf="@id/state_header" />
