@@ -53,6 +53,7 @@ class CivicRepository(private val electionDao: ElectionDao) {
                 val response = CivicsApi.retrofitService
                         .getVoterInfoAsync(address, electionId).await()
                 voterInfo.postValue(response)
+                return@withContext voterInfo.value
             }
         } catch (error: Exception) {
             error.printStackTrace()
