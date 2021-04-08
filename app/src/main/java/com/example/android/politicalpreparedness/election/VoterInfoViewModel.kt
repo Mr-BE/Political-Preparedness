@@ -37,25 +37,15 @@ class VoterInfoViewModel(private val dataSource: ElectionDao) : ViewModel() {
     val infoLink: LiveData<String>
         get() = _infoLink
 
-    init {
-//        getVoterInfo()
-    }
-
     //get voter info from repo
     fun getVoterInfo() {
         viewModelScope.launch {
             _voterInfo.value = repo.getVoterInfo(getAddressFromStateCode(_electionReceived.value?.division?.state
-                    ?: ""),
+                    ?: "https://www.google.com"),
                     _electionReceived.value?.id!!)
         }
     }
-//    @ExperimentalCoroutinesApi
-//    suspend fun getVoterInfo() = withContext(Dispatchers.IO){
-//        val result = CivicsApi.retrofitService.getVoterInfoAsync(getDivisionAdr(electionReceived.value?.division!!), electionReceived.value!!.id)
-//        if (result.isCompleted) {
-//            _voterInfo.value = result.getCompleted()
-//        }
-//    }
+
 
     //Get election info to display by election id
     fun getElectionById(election: Election) {
@@ -85,6 +75,11 @@ class VoterInfoViewModel(private val dataSource: ElectionDao) : ViewModel() {
         _infoLink.value = url
     }
 
+    fun createSupportUrl() {
+        val urlString = _voterInfo.value?.state?.get(0)?.electionAdministrationBody?.electionInfoUrl
+                ?: ""
+        _infoLink.value = urlString
+    }
 
     //TODO: cont'd -- Populate initial state of save button to reflect proper action based on election saved status
 

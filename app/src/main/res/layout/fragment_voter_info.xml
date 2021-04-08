@@ -52,22 +52,37 @@
             android:layout_marginStart="@dimen/small_spacing"
             android:layout_marginTop="@dimen/normal_space"
             android:layout_height="wrap_content"
+            android:text="@string/state"
             tools:text="@string/state"
             app:layout_constraintTop_toBottomOf="@id/election_date"
             app:layout_constraintStart_toStartOf="@id/election_date" />
 
-        <!-- TODO: Add click binding to open web URL -->
-        <!-- TODO: Add visual styling and content -->
         <TextView
-            android:id="@+id/state_locations"
+            android:id="@+id/state_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/normal_space"
+            android:layout_marginTop="16dp"
+            android:text="@{viewModel.voterInfo.state[0].name}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@id/state_header"
+            app:layout_constraintTop_toBottomOf="@id/election_date"
+            tools:text="Illinois" />
+
+        <TextView
+            android:id="@+id/info_url_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/view_state_locations"
-            android:textColor="@color/colorAccent"
-            android:onClick="@{() -> viewModel.getSupportUrl(viewModel.voterInfo.state[0].electionAdministrationBody.votingLocationFinderUrl)}"
-            android:textStyle="italic|bold"
+            android:layout_marginStart="@dimen/small_spacing"
+            android:layout_marginTop="@dimen/normal_space"
+            android:text="@string/election_info"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/state_header"
-            app:layout_constraintStart_toEndOf="@id/state_header" />
+            tools:text="Election Info" />
+
+        <!-- TODO: Add click binding to open web URL -->
+        <!-- TODO: Add visual styling and content -->
 
         <!-- TODO: Add click binding to open web URL -->
         <!-- TODO: Add visual styling and content -->
@@ -101,6 +116,19 @@
         <!--            app:layout_constraintStart_toStartOf="@id/election_date" />-->
 
         <!-- COMPLETED: Add button to save election to Room -->
+
+        <TextView
+            android:id="@+id/election_info_url"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/view_state_locations"
+            android:textColor="@color/colorAccent"
+            android:textStyle="italic|bold"
+            app:layout_constraintStart_toEndOf="@id/info_url_text"
+            app:layout_constraintTop_toBottomOf="@+id/state_name" />
+
         <Button
             android:id="@+id/follow_election_button"
             android:layout_width="0dp"

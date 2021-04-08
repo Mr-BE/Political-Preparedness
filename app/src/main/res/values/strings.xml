@@ -11,6 +11,9 @@
     <string name="view_state_locations">View state locations</string>
     <string name="follow_election">Follow Election</string>
     <string name="unfollow_election">Unfollow Election</string>
+    <string name="no_info">No information available. Try later</string>
+    <string name="election_info">Election info:</string>
+    <string name="click_here">Click Here</string>
 
     <!-- TODO: Add necessary string values -->
 

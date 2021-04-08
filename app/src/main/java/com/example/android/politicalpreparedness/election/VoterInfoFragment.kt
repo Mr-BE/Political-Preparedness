@@ -7,7 +7,6 @@ import android.view.*
 import android.widget.Button
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.android.politicalpreparedness.R
 import com.example.android.politicalpreparedness.data.ElectionDatabase
@@ -32,11 +31,11 @@ class VoterInfoFragment : Fragment() {
                 container, false)
 
         //view model data source
-        val dataSource = ElectionDatabase.getInstance(
+        val source = ElectionDatabase.getInstance(
                 requireNotNull(this.activity).application).electionDao
 
         //COMPLETED: Add ViewModel values and create ViewModel
-        infoViewModel = ViewModelProvider(this, VoterInfoViewModelFactory(dataSource))
+        infoViewModel = ViewModelProvider(this, VoterInfoViewModelFactory(source))
                 .get(VoterInfoViewModel::class.java)
 
         //COMPLETED: Add binding values
@@ -49,8 +48,13 @@ class VoterInfoFragment : Fragment() {
         //determine election by id
         infoViewModel.getElectionById(electionArgs)
 
-        //get voter info
-        infoViewModel.getVoterInfo()
+        infoViewModel.electionReceived.observe(viewLifecycleOwner, {
+            //get voter info
+            infoViewModel.getVoterInfo()
+        })
+        infoViewModel.voterInfo.observe(viewLifecycleOwner, {
+            infoViewModel.createSupportUrl()
+        })
 
 
         //COMPLETED: Populate voter info -- hide views without provided data.
@@ -88,12 +92,19 @@ class VoterInfoFragment : Fragment() {
         //observe url value
         infoViewModel.infoLink.observe(viewLifecycleOwner, { urlString ->
 
-            loadUrlOnClick(urlString)
+            //check value of created url (dependent on API response)
+            if (urlString.isNotBlank()) { //election has info url
+                binding.electionInfoUrl.text = getText(R.string.click_here)
+                binding.electionInfoUrl.setOnClickListener {
+                    loadUrlOnClick(urlString)
+                }
+            } else { //no info url. Update UI
+                binding.electionInfoUrl.text = getText(R.string.no_info)
+            }
 
         })
         return binding.root
     }
-
 
     //COMPLETED: Create method to load URL intents
     private fun loadUrlOnClick(url: String) {
