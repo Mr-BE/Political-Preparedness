@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.example.android.politicalpreparedness.data.ElectionDao
 import com.example.android.politicalpreparedness.network.CivicsApi
 import com.example.android.politicalpreparedness.network.models.Election
+import com.example.android.politicalpreparedness.network.models.RepresentativeResponse
 import com.example.android.politicalpreparedness.network.models.VoterInfoResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -17,6 +18,7 @@ class CivicRepository(private val electionDao: ElectionDao) {
 
     //voter info
     var voterInfo = MutableLiveData<VoterInfoResponse>()
+    var reps = MutableLiveData<RepresentativeResponse?>()
 
     //refresh election content
     suspend fun refreshElection() {
@@ -56,10 +58,25 @@ class CivicRepository(private val electionDao: ElectionDao) {
                 return@withContext voterInfo.value
             }
         } catch (error: Exception) {
-            error.printStackTrace()
             Timber.e("Error getting voter info: Reason -> ${error.message}")
         }
         return voterInfo.value
+    }
+
+    //get representatives
+    suspend fun getReps(address: String): RepresentativeResponse? {
+        try {
+            withContext(Dispatchers.IO) {
+                val response = CivicsApi.retrofitService
+                        .getRepresentativesAsync(address).await()
+                reps.postValue(response)
+                return@withContext reps.value
+            }
+        } catch (error: Exception) {
+            Timber.e("Error getting reps: Reason -> ${error.message}")
+        }
+        return reps.value
+
     }
 
 }

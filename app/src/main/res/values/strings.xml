@@ -14,7 +14,8 @@
     <string name="no_info">No information available. Try later</string>
     <string name="election_info">Election info:</string>
     <string name="click_here">Click Here</string>
+    <string name="use_my_location">Use my Location</string>
 
-    <!-- TODO: Add necessary string values -->
+    <!-- COMPLETED: Add necessary string values -->
 
 </resources>
