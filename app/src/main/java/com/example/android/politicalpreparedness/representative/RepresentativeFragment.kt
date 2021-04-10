@@ -15,13 +15,16 @@ import com.example.android.politicalpreparedness.R
 import com.example.android.politicalpreparedness.data.ElectionDatabase
 import com.example.android.politicalpreparedness.databinding.FragmentRepresentativeBinding
 import com.example.android.politicalpreparedness.network.models.Address
+import com.example.android.politicalpreparedness.representative.adapter.RepresentativeListAdapter
+import com.example.android.politicalpreparedness.representative.adapter.RepresentativeListener
 import java.util.Locale
 
-class DetailFragment : Fragment(), AdapterView.OnItemClickListener {
+class DetailFragment : Fragment(), AdapterView.OnItemSelectedListener {
     //COMPLETED: Declare ViewModel
     private lateinit var repViewModel: RepresentativeViewModel
 
     private lateinit var binding: FragmentRepresentativeBinding
+    private lateinit var repsAdapter: RepresentativeListAdapter
 
     companion object {
         //TODO: Add Constant for Location request
@@ -35,7 +38,7 @@ class DetailFragment : Fragment(), AdapterView.OnItemClickListener {
                               savedInstanceState: Bundle?): View? {
 
         //COMPLETED: Establish bindings
-        binding = FragmentRepresentativeBinding.inflate(inflater)
+        binding = FragmentRepresentativeBinding.inflate(inflater, container, false)
 
         val source = ElectionDatabase.getInstance(
                 requireNotNull(this.activity).application).electionDao
@@ -50,6 +53,7 @@ class DetailFragment : Fragment(), AdapterView.OnItemClickListener {
 
         //Spinner setup
         val spinner: Spinner = binding.stateSpinner
+        spinner.onItemSelectedListener = this
 
 
 // Create an ArrayAdapter using the string array and a default spinner layout
@@ -64,7 +68,11 @@ class DetailFragment : Fragment(), AdapterView.OnItemClickListener {
 
         binding.buttonSearch.setOnClickListener {
             repViewModel.setUpAddress()
+            hideKeyboard()
         }
+        repViewModel.state.observe(viewLifecycleOwner, {
+            val s = it
+        })
 
 
         repViewModel.userAddress.observe(viewLifecycleOwner, {
@@ -72,7 +80,12 @@ class DetailFragment : Fragment(), AdapterView.OnItemClickListener {
         })
 
 
-        //TODO: Define and assign Representative adapter
+        //COMPLETED: Define and assign Representative adapter
+        repsAdapter = RepresentativeListAdapter()
+        binding.repsList.adapter = repsAdapter
+        repViewModel.representatives.observe(viewLifecycleOwner, {
+            repsAdapter.submitList(it)
+        })
 
         //TODO: Populate Representative adapter
 
@@ -81,10 +94,7 @@ class DetailFragment : Fragment(), AdapterView.OnItemClickListener {
 
     }
 
-    //handle spinner click event
-    override fun onItemClick(parent: AdapterView<*>?, view: View?, pos: Int, id: Long) {
-        repViewModel.state.postValue(parent?.getItemAtPosition(pos).toString())
-    }
+
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
@@ -117,6 +127,15 @@ class DetailFragment : Fragment(), AdapterView.OnItemClickListener {
     private fun hideKeyboard() {
         val imm = activity?.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
 //        imm.hideSoftInputFromWindow(view!!.windowToken, 0)
+    }
+
+    //handle spinner click event
+    override fun onItemSelected(parent: AdapterView<*>?, view: View?, pos: Int, id: Long) {
+        repViewModel.state.value = parent?.getItemAtPosition(pos).toString()
+    }
+
+    override fun onNothingSelected(p0: AdapterView<*>?) {
+        repViewModel.state.value = ""
     }
 
 

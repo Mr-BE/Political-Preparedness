@@ -8,6 +8,7 @@ import com.example.android.politicalpreparedness.network.models.State
 import com.example.android.politicalpreparedness.repository.CivicRepository
 import com.example.android.politicalpreparedness.representative.model.Representative
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 class RepresentativeViewModel(private val dataSource: ElectionDao) : ViewModel() {
 
@@ -27,8 +28,6 @@ class RepresentativeViewModel(private val dataSource: ElectionDao) : ViewModel()
     val userAddress: LiveData<String>
         get() = _userAddress
 
-    //Spinner Items
-    var stateList: List<State>? = null
 
     //    17939 KIETH HARROW BLVD STE 106,HOUSTON, TX 77084-5724
     //Address fields
@@ -38,23 +37,25 @@ class RepresentativeViewModel(private val dataSource: ElectionDao) : ViewModel()
     var zipCode: String = ""
     var state = MutableLiveData<String>()
 
-
     fun setUpAddress() {
-        _userAddress.postValue(state.value?.let { Address(address1, address2, city, it, zipCode).toFormattedString() })
+//        _userAddress.postValue(state.value?.let { Address(address1, address2, city, it, zipCode).toFormattedString() })
+        _userAddress.value = state.value?.let { Address(address1, address2, city, it, zipCode).toFormattedString() }
     }
 
 
     //COMPLETED: Create function to fetch representatives from API from a provided address
     fun fetchReps(address: String) {
-//  setUpAddress()
+
         viewModelScope.launch {
             _foundRepsResponse.value = _userAddress.value?.let { repo.getReps(it) }
+            Timber.i("Address is ${_userAddress.value}")
         }
         val offices = _foundRepsResponse.value?.offices
+        Timber.i("Number of offices is ${offices?.size}")
         val officials = _foundRepsResponse.value?.officials
-
+        Timber.i("Number of offices is ${officials?.size}")
         _representatives.value = offices?.flatMap { office -> office.getRepresentatives(officials!!) }
-
+        Timber.i("Number of reps is ${_representatives.value?.size}")
     }
 
 

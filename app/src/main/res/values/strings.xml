@@ -15,6 +15,15 @@
     <string name="election_info">Election info:</string>
     <string name="click_here">Click Here</string>
     <string name="use_my_location">Use my Location</string>
+    <string name="address_line_1">Address Line 1</string>
+    <string name="address_line_2">Address Line 2</string>
+    <string name="city">City</string>
+    <string name="zip">Zip</string>
+    <string name="my_representatives">My Representatives</string>
+    <string name="representative_profile_picture">Representative profile picture</string>
+    <string name="twitter_link">Twitter Link</string>
+    <string name="facebook_link">Facebook Link</string>
+    <string name="web_link">Web Link</string>
 
     <!-- COMPLETED: Add necessary string values -->
 

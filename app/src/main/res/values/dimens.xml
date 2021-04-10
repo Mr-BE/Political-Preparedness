@@ -5,6 +5,9 @@
     <dimen name="normal_space">16dp</dimen>
     <dimen name="header_one_text">30sp</dimen>
     <dimen name="header_two_text">24</dimen>
+    <dimen name="header_text_three">20sp</dimen>
+    <dimen name="content_text">18sp</dimen>
+    <dimen name="tiny_space">4dp</dimen>
 
     <!-- TODO: Add necessary dimension values -->s
 
