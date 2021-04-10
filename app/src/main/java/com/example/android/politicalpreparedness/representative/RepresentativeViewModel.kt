@@ -1,5 +1,6 @@
 package com.example.android.politicalpreparedness.representative
 
+import android.location.Location
 import androidx.lifecycle.*
 import com.example.android.politicalpreparedness.data.ElectionDao
 import com.example.android.politicalpreparedness.network.models.Address
@@ -70,7 +71,11 @@ class RepresentativeViewModel(private val dataSource: ElectionDao) : ViewModel()
 
      */
 
-    //TODO: Create function get address from geo location
+    //COMPLETED: Create function get address from geo location
+    fun getAddressFromGeo(address: Address) {
+        _userAddress.value = address.toFormattedString()
+        fetchReps(_userAddress.value.toString())
+    }
 
     //TODO: Create function to get address from individual fields
 
