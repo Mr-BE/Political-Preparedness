@@ -14,40 +14,42 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/small_space">
 
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/tiny_space"
-            android:elevation="@dimen/small_spacing"
+            android:elevation="@dimen/small_space"
             app:cardCornerRadius="@dimen/tiny_space">
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/small_space">
 
 
                 <ImageView
                     android:id="@+id/rep_image"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/small_spacing"
+                    android:layout_margin="@dimen/small_space"
                     android:contentDescription="@string/representative_profile_picture"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
+                    tools:src="@drawable/ic_profile"
                     app:profileImage="@{representative.official.photoUrl}" />
 
                 <TextView
                     android:id="@+id/rep_office"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/small_spacing"
-                    android:layout_marginTop="@dimen/small_spacing"
+                    style="@style/item_header_style"
+                    android:layout_marginStart="@dimen/small_space"
                     android:text="@{representative.office.name}"
-                    android:textSize="@dimen/header_text_three"
-                    android:textStyle="bold"
+                    android:layout_marginTop="@dimen/small_space"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/rep_image"
                     app:layout_constraintTop_toTopOf="parent"
@@ -57,9 +59,9 @@
                     android:id="@+id/rep_name"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/small_spacing"
+                    style="@style/item_subhead_text_style"
                     android:text="@{representative.official.name}"
-                    android:textSize="@dimen/content_text"
+                    android:layout_marginStart="@dimen/small_space"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/rep_image"
                     app:layout_constraintTop_toBottomOf="@id/rep_office"
@@ -69,9 +71,9 @@
                     android:id="@+id/rep_political_party"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/small_spacing"
+                    style="@style/item_subhead_text_style"
                     android:text="@{representative.official.party}"
-                    android:textSize="@dimen/content_text"
+                    android:layout_marginStart="@dimen/small_space"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/rep_image"
                     app:layout_constraintTop_toBottomOf="@id/rep_name"
@@ -82,7 +84,7 @@
                     android:id="@+id/twitter_link"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:layout_marginEnd="@dimen/small_spacing"
+                    android:layout_marginEnd="@dimen/small_space"
                     android:contentDescription="@string/twitter_link"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/rep_name"
@@ -92,7 +94,7 @@
                     android:id="@+id/facebook_link"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:layout_marginEnd="@dimen/small_spacing"
+                    android:layout_marginEnd="@dimen/normal_space"
                     android:contentDescription="@string/facebook_link"
                     app:layout_constraintEnd_toStartOf="@id/twitter_link"
                     app:layout_constraintTop_toBottomOf="@id/rep_name"
@@ -102,7 +104,7 @@
                     android:id="@+id/web_link"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:layout_marginEnd="@dimen/small_spacing"
+                    android:layout_marginEnd="@dimen/normal_space"
                     android:contentDescription="@string/web_link"
                     app:layout_constraintEnd_toStartOf="@id/facebook_link"
                     app:layout_constraintTop_toBottomOf="@id/rep_name"

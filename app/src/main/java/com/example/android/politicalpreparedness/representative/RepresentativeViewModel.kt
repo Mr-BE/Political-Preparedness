@@ -30,7 +30,7 @@ class RepresentativeViewModel(private val dataSource: ElectionDao) : ViewModel()
         get() = _userAddress
 
 
-    //    17939 KIETH HARROW BLVD STE 106,HOUSTON, TX 77084-5724
+    //COMPLETE: Create function to get address from individual fields
     //Address fields
     var address1: String = ""
     var address2: String? = null
@@ -49,14 +49,10 @@ class RepresentativeViewModel(private val dataSource: ElectionDao) : ViewModel()
 
         viewModelScope.launch {
             _foundRepsResponse.value = _userAddress.value?.let { repo.getReps(it) }
-            Timber.i("Address is ${_userAddress.value}")
         }
         val offices = _foundRepsResponse.value?.offices
-        Timber.i("Number of offices is ${offices?.size}")
         val officials = _foundRepsResponse.value?.officials
-        Timber.i("Number of offices is ${officials?.size}")
         _representatives.value = offices?.flatMap { office -> office.getRepresentatives(officials!!) }
-        Timber.i("Number of reps is ${_representatives.value?.size}")
     }
 
 
@@ -76,9 +72,6 @@ class RepresentativeViewModel(private val dataSource: ElectionDao) : ViewModel()
         _userAddress.value = address.toFormattedString()
         fetchReps(_userAddress.value.toString())
     }
-
-    //TODO: Create function to get address from individual fields
-
 
     class RepresentativeViewModelFactory(private val electionDao: ElectionDao) : ViewModelProvider.Factory {
         @Suppress("unchecked_cast")

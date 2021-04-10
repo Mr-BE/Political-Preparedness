@@ -24,6 +24,12 @@
     <string name="twitter_link">Twitter Link</string>
     <string name="facebook_link">Facebook Link</string>
     <string name="web_link">Web Link</string>
+    <string name="fragment_launch">Launch</string>
+    <string name="voter_info">Voter Information</string>
+    <string name="elections">Elections</string>
+    <string name="find_reps">Find Representatives</string>
+    <string name="ballot_url">Ballot Url</string>
+    <string name="correspondence">Correspondence:</string>
 
     <!-- COMPLETED: Add necessary string values -->
 

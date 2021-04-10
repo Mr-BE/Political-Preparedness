@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -10,29 +11,40 @@
 
     </data>
 
-    <LinearLayout
-        android:id="@+id/item_election_layout"
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/tiny_space"
+        android:background="@color/cardview_shadow_end_color"
+        android:elevation="@dimen/small_space"
+        app:cardCornerRadius="@dimen/tiny_space">
 
-        <TextView
-            android:id="@+id/item_election_name"
+
+        <LinearLayout
+            android:id="@+id/item_election_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/small_spacing"
-            android:text="@{election.name}"
-            android:textStyle="bold"
-            android:textSize="20sp"
-            tools:text="Wisconsin Election" />
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/item_election_date"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/small_spacing"
-            android:text="@{election.electionDay.toGMTString()}"
-            android:textSize="18sp"
-            tools:text="2021-04-06" />
-    </LinearLayout>
+            <TextView
+                android:id="@+id/item_election_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/item_header_style"
+                android:text="@{election.name}"
+                android:layout_marginStart="@dimen/small_space"
+                tools:text="Wisconsin Election" />
+
+            <TextView
+                android:id="@+id/item_election_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/item_subhead_text_style"
+                android:layout_marginStart="@dimen/small_space"
+                android:layout_marginTop="@dimen/tiny_space"
+                android:text="@{election.electionDay.toGMTString()}"
+                android:layout_marginBottom="@dimen/small_space"
+                tools:text="2021-04-06" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
 </layout>

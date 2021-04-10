@@ -63,9 +63,15 @@ class VoterInfoFragment : Fragment() {
          */
 
 
-        //TODO: Handle loading of URLs
+        //COMPLETED: Handle loading of URLs
 
         saveButton = binding.followElectionButton
+
+        if (infoViewModel.electionSaveStatus.value != true) {
+            saveButton.text = getText(R.string.follow_election)
+        } else {
+            saveButton.text = getText(R.string.unfollow_election)
+        }
 
         //COMPLETED: Handle save button UI state
         infoViewModel.electionSaveStatus.observe(viewLifecycleOwner, { saveStatus ->

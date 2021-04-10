@@ -11,13 +11,13 @@
         android:id="@+id/frameLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/background"
         tools:context="com.example.android.politicalpreparedness.MainActivity">
-
 
         <ImageView
             android:id="@+id/ballot_logo_view"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/normal_space"
             android:layout_marginEnd="@dimen/normal_space"
             android:contentDescription="@string/political_preparedness_logo_ballot"
@@ -32,22 +32,25 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/normal_space"
-            android:background="@color/colorAccent"
             android:text="@string/find_my_reps_text"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/ballot_logo_view"
+            style="@style/button_two_style"
             app:layout_constraintStart_toStartOf="@+id/ballot_logo_view" />
 
         <Button
             android:id="@+id/upcoming_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/small_spacing"
-            android:background="@color/colorAccent"
+            style="@style/button_one_style"
             android:text="@string/upcoming_election"
             app:layout_constraintBottom_toTopOf="@+id/find_reps_button"
             app:layout_constraintEnd_toEndOf="@+id/ballot_logo_view"
-            app:layout_constraintStart_toStartOf="@+id/ballot_logo_view" />
+            android:layout_marginBottom="@dimen/small_space"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/ballot_logo_view"
+            app:layout_constraintTop_toBottomOf="@+id/ballot_logo_view"
+            app:layout_constraintVertical_bias="0.853" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
