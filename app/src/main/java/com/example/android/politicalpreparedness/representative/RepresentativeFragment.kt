@@ -42,9 +42,6 @@ class DetailFragment : Fragment(), AdapterView.OnItemSelectedListener {
         private const val LOCATION_REQUEST_CODE = 19
     }
 
-//17939 KIETH HARROW BLVD STE 106,HOUSTON, TX 77084-5724
-
-
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
@@ -79,12 +76,6 @@ class DetailFragment : Fragment(), AdapterView.OnItemSelectedListener {
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             spinner.adapter = adapter
         }
-
-
-//        repViewModel.state.observe(viewLifecycleOwner, {
-//            val s = it
-//        })
-
 
         repViewModel.userAddress.observe(viewLifecycleOwner, {
             repViewModel.fetchReps(it)
@@ -211,6 +202,4 @@ class DetailFragment : Fragment(), AdapterView.OnItemSelectedListener {
     override fun onNothingSelected(p0: AdapterView<*>?) {
         repViewModel.state.value = ""
     }
-
-
 }

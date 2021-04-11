@@ -21,6 +21,7 @@ class CivicRepository(private val electionDao: ElectionDao) {
     var voterInfo = MutableLiveData<VoterInfoResponse>()
     var reps = MutableLiveData<RepresentativeResponse?>()
     var isLoading = MutableLiveData<Boolean>()
+
     //refresh election content
     suspend fun refreshElection() {
         try {
@@ -41,9 +42,9 @@ class CivicRepository(private val electionDao: ElectionDao) {
     }
 
     //Get specific election object
-    suspend fun getElectionById(electionId: Int): Election? {
-        return electionDao.getElectionById(electionId)
-    }
+//    suspend fun getElectionById(electionId: Int): Election? {
+//        return electionDao.getElectionById(electionId)
+//    }
 
     //update election to indicate if saved or not
     suspend fun updateElection(election: Election) {
