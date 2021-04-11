@@ -2,19 +2,15 @@ package com.example.android.politicalpreparedness.election
 
 import androidx.lifecycle.*
 import com.example.android.politicalpreparedness.data.ElectionDao
-import com.example.android.politicalpreparedness.network.CivicsApi
-import com.example.android.politicalpreparedness.network.models.Division
 import com.example.android.politicalpreparedness.network.models.Election
 import com.example.android.politicalpreparedness.network.models.VoterInfoResponse
 import com.example.android.politicalpreparedness.repository.CivicRepository
 import com.example.android.politicalpreparedness.utils.getAddressFromStateCode
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 @ExperimentalCoroutinesApi
-class VoterInfoViewModel(private val dataSource: ElectionDao) : ViewModel() {
+class VoterInfoViewModel(dataSource: ElectionDao) : ViewModel() {
 
     //data entry point
     private val repo = CivicRepository(dataSource)
@@ -60,6 +56,7 @@ class VoterInfoViewModel(private val dataSource: ElectionDao) : ViewModel() {
             repo.updateElection(election)
         }
     }
+    //COMPLETED: cont'd -- Populate initial state of save button to reflect proper action based on election saved status
 
     fun updateElectionStatusUnsaved(election: Election) {
         viewModelScope.launch {
@@ -71,17 +68,12 @@ class VoterInfoViewModel(private val dataSource: ElectionDao) : ViewModel() {
 
 
     //COMPLETED: Add var and methods to support loading URLs
-    fun getSupportUrl(url: String) {
-        _infoLink.value = url
-    }
-
     fun createSupportUrl() {
         val urlString = _voterInfo.value?.state?.get(0)?.electionAdministrationBody?.electionInfoUrl
                 ?: ""
         _infoLink.value = urlString
     }
 
-    //TODO: cont'd -- Populate initial state of save button to reflect proper action based on election saved status
 
     /**
      * Hint: The saved state can be accomplished in multiple ways. It is directly related to how elections are saved/removed from the database.

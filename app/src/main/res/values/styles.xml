@@ -39,6 +39,6 @@
         <item name="android:textColor">@color/secondaryDarkColor</item>
     </style>
 
-    <!-- TODO: Add necessary styles -->
+    <!-- COMPLETED: Add necessary styles -->
 
 </resources>

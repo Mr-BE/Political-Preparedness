@@ -137,6 +137,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/normal_space"
+            android:text="@{viewModel.voterInfo.state[0].address"
             app:layout_constraintStart_toStartOf="@id/state_ballot_url"
             app:layout_constraintTop_toBottomOf="@id/state_ballot_url" />
 

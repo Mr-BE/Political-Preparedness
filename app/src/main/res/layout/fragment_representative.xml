@@ -11,11 +11,25 @@
             type="com.example.android.politicalpreparedness.representative.RepresentativeViewModel" />
     </data>
 
-    <!-- TODO: Add motion scene to hide form on vertical scroll. -->
+    <!-- COMPLETED: Add motion scene to hide form on vertical scroll. -->
     <androidx.constraintlayout.motion.widget.MotionLayout
+        android:id="@+id/motion_layout"
         android:layout_height="match_parent"
         android:layout_width="match_parent"
+        app:layoutDescription="@xml/reps_motion_scene"
         android:background="@color/background">
+
+        <ProgressBar
+            android:id="@+id/repsProgressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="121dp"
+            android:layout_height="112dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/user_form"
@@ -27,7 +41,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <!-- TODO: Add visual styling and content -->
+            <!-- COMPLETED: Add visual styling and content -->
             <TextView
                 android:id="@+id/search_title"
                 android:layout_width="wrap_content"
@@ -36,7 +50,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <!-- COMPLETED: Add data binding value -->
-            <!-- TODO: Add visual styling and content -->
+            <!-- COMPLETED: Add visual styling and content -->
             <EditText
                 android:id="@+id/address_line_1"
                 android:layout_width="match_parent"
@@ -49,7 +63,7 @@
                 app:layout_constraintTop_toBottomOf="@id/search_title" />
 
             <!-- COMPLETED: Add data binding value -->
-            <!-- TODO: Add visual styling and content -->
+            <!-- COMPLETED: Add visual styling and content -->
             <EditText
                 android:id="@+id/address_line_2"
                 android:layout_width="match_parent"
@@ -62,7 +76,7 @@
                 app:layout_constraintTop_toBottomOf="@id/address_line_1" />
 
             <!-- COMPLETED: Add data binding value -->
-            <!-- TODO: Add visual styling and content -->
+            <!-- COMPLETED: Add visual styling and content -->
             <EditText
                 android:id="@+id/city"
                 android:layout_width="0dp"
@@ -77,7 +91,7 @@
 
             <!-- COMPLETED: Add default values from provided resources  -->
             <!-- COMPLETED: Add data binding value -->
-            <!-- TODO: Add visual styling and content -->
+            <!-- COMPLETED: Add visual styling and content -->
             <Spinner
                 android:id="@+id/state_spinner"
                 android:layout_width="0dp"
@@ -90,7 +104,7 @@
                 app:layout_constraintTop_toTopOf="@id/city" />
 
             <!-- COMPLETED: Add data binding value -->
-            <!-- TODO: Add visual styling and content -->
+            <!-- COMPLETED: Add visual styling and content -->
             <EditText
                 android:id="@+id/zip"
                 android:layout_width="0dp"
@@ -111,8 +125,8 @@
         <Button
             android:id="@+id/button_search"
             style="@style/button_one_style"
-            android:layout_height="wrap_content"
             android:text="@string/find_my_reps_text"
+            android:layout_height="wrap_content"
             android:layout_width="0dp"
             android:layout_marginStart="@dimen/small_space"
             android:layout_marginTop="@dimen/small_space"
@@ -125,8 +139,8 @@
         <Button
             android:id="@+id/button_location"
             style="@style/button_two_style"
-            android:layout_height="wrap_content"
             android:text="@string/use_my_location"
+            android:layout_height="wrap_content"
             android:layout_width="0dp"
             android:layout_marginStart="@dimen/small_space"
             android:layout_marginTop="@dimen/normal_space"

@@ -9,6 +9,6 @@
     <dimen name="content_text">18sp</dimen>
     <dimen name="tiny_space">4dp</dimen>
 
-    <!-- TODO: Add necessary dimension values -->s
+    <!-- COMPLETED: Add necessary dimension values -->s
 
 </resources>

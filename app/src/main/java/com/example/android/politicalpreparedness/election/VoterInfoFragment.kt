@@ -3,7 +3,9 @@ package com.example.android.politicalpreparedness.election
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Button
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -11,11 +13,12 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.android.politicalpreparedness.R
 import com.example.android.politicalpreparedness.data.ElectionDatabase
 import com.example.android.politicalpreparedness.databinding.FragmentVoterInfoBinding
-import com.example.android.politicalpreparedness.election.VoterInfoViewModel.*
+import com.example.android.politicalpreparedness.election.VoterInfoViewModel.VoterInfoViewModelFactory
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 class VoterInfoFragment : Fragment() {
 
+    @ExperimentalCoroutinesApi
     private lateinit var infoViewModel: VoterInfoViewModel
     private lateinit var binding: FragmentVoterInfoBinding
     private lateinit var saveButton: Button
@@ -23,7 +26,7 @@ class VoterInfoFragment : Fragment() {
     @ExperimentalCoroutinesApi
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+                              savedInstanceState: Bundle?): View {
 
         //set up binding
         binding = DataBindingUtil.inflate(inflater,
@@ -91,9 +94,6 @@ class VoterInfoFragment : Fragment() {
             }
         }
 
-        //set url for info
-//        infoViewModel.getSupportUrl(infoViewModel.voterInfo.value?.state
-//                ?.get(0)?.electionAdministrationBody?.votingLocationFinderUrl!!)
 
         //observe url value
         infoViewModel.infoLink.observe(viewLifecycleOwner, { urlString ->

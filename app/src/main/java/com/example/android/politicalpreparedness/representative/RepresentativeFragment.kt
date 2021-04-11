@@ -9,28 +9,25 @@ import android.location.Location
 import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Spinner
-import android.widget.Toast
+import android.widget.*
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.example.android.politicalpreparedness.App
 import com.example.android.politicalpreparedness.BuildConfig
 import com.example.android.politicalpreparedness.R
 import com.example.android.politicalpreparedness.data.ElectionDatabase
 import com.example.android.politicalpreparedness.databinding.FragmentRepresentativeBinding
 import com.example.android.politicalpreparedness.network.models.Address
 import com.example.android.politicalpreparedness.representative.adapter.RepresentativeListAdapter
-import com.example.android.politicalpreparedness.representative.adapter.RepresentativeListener
 import com.google.android.gms.location.LocationServices
 import com.google.android.material.snackbar.Snackbar
 import timber.log.Timber
-import java.util.Locale
-import java.util.jar.Manifest
+import java.util.*
 
 class DetailFragment : Fragment(), AdapterView.OnItemSelectedListener {
     //COMPLETED: Declare ViewModel
@@ -38,6 +35,7 @@ class DetailFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     private lateinit var binding: FragmentRepresentativeBinding
     private lateinit var repsAdapter: RepresentativeListAdapter
+    private lateinit var progressBar: ProgressBar
 
     companion object {
         //COMPLETED: Add Constant for Location request
@@ -65,6 +63,8 @@ class DetailFragment : Fragment(), AdapterView.OnItemSelectedListener {
         binding.viewModel = repViewModel
         binding.lifecycleOwner = this
 
+        progressBar = binding.repsProgressBar
+
         //Spinner setup
         val spinner: Spinner = binding.stateSpinner
         spinner.onItemSelectedListener = this
@@ -80,10 +80,7 @@ class DetailFragment : Fragment(), AdapterView.OnItemSelectedListener {
             spinner.adapter = adapter
         }
 
-        binding.buttonSearch.setOnClickListener {
-            repViewModel.setUpAddress()
-            hideKeyboard()
-        }
+
 //        repViewModel.state.observe(viewLifecycleOwner, {
 //            val s = it
 //        })
@@ -103,15 +100,31 @@ class DetailFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
         //COMPLETED in XML: Populate Representative adapter
 
-        //TODO: Establish button listeners for field and location search
+        //COMPLETED: Establish button listeners for field and location search
         binding.buttonLocation.setOnClickListener {
+            handleProgressBar()
             checkLocationPermissions()
+            hideKeyboard()
+        }
+
+        binding.buttonSearch.setOnClickListener {
+            handleProgressBar()
+            repViewModel.setUpAddress()
             hideKeyboard()
         }
         return binding.root
 
     }
 
+    private fun handleProgressBar() {
+        repViewModel.showProgress.observe(viewLifecycleOwner, Observer {
+            if (it == true) {
+                progressBar.visibility = View.VISIBLE
+            } else {
+                progressBar.visibility = View.GONE
+            }
+        })
+    }
 
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {

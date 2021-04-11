@@ -6,7 +6,7 @@ import com.example.android.politicalpreparedness.network.models.Election
 import com.example.android.politicalpreparedness.repository.CivicRepository
 import kotlinx.coroutines.launch
 
-//TODO: Construct ViewModel and provide election datasource
+//COMPLETED: Construct ViewModel and provide election datasource
 class ElectionsViewModel(electionDao: ElectionDao) : ViewModel() {
 
     private val repo = CivicRepository(electionDao)
@@ -21,9 +21,17 @@ class ElectionsViewModel(electionDao: ElectionDao) : ViewModel() {
     val savedElections: LiveData<List<Election>>
         get() = _savedElections
 
-    //TODO: Create val and functions to populate live data for upcoming elections from the API and saved elections from local database
-    fun populateUpcomingElections() {
-    }
+    //determine whether to show loading progress
+    private val _showLoading = MutableLiveData<Boolean>()
+    val showLoading: LiveData<Boolean>
+        get() = _showLoading
+
+    //monitor navigation
+    private val _navigationValue = MutableLiveData<Boolean>()
+    val navigationValue: LiveData<Boolean>
+        get() = _navigationValue
+
+    //COMPLETED: Create val and functions to populate live data for upcoming elections from the API and saved elections from local database
 
     val savedElectionItems = repo.savedElectionList
     val upcomingElectionItems = repo.electionList
@@ -34,8 +42,19 @@ class ElectionsViewModel(electionDao: ElectionDao) : ViewModel() {
         }
     }
 
-    //TODO: Create functions to navigate to saved or upcoming election voter info
+    fun checkLoading() {
+        _showLoading.value = repo.isLoading.value != true
+    }
 
+    //COMPLETED: Create functions to navigate to saved or upcoming election voter info
+
+    fun navigateOut() {
+        _navigationValue.value = true
+    }
+
+    fun doneNavigation() {
+        _navigationValue.value = true
+    }
 
     //Completed: Create Factory to generate ElectionViewModel with provided election datasource
     class ElectionsViewModelFactory(private val electionDao: ElectionDao) : ViewModelProvider.Factory {

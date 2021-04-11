@@ -1,15 +1,12 @@
 package com.example.android.politicalpreparedness.representative
 
-import android.location.Location
 import androidx.lifecycle.*
 import com.example.android.politicalpreparedness.data.ElectionDao
 import com.example.android.politicalpreparedness.network.models.Address
 import com.example.android.politicalpreparedness.network.models.RepresentativeResponse
-import com.example.android.politicalpreparedness.network.models.State
 import com.example.android.politicalpreparedness.repository.CivicRepository
 import com.example.android.politicalpreparedness.representative.model.Representative
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 class RepresentativeViewModel(private val dataSource: ElectionDao) : ViewModel() {
 
@@ -28,6 +25,21 @@ class RepresentativeViewModel(private val dataSource: ElectionDao) : ViewModel()
     private val _userAddress = MutableLiveData<String>()
     val userAddress: LiveData<String>
         get() = _userAddress
+
+    //progressBar
+    private val _showProgress = MutableLiveData<Boolean>()
+    val showProgress: LiveData<Boolean>
+        get() = _showProgress
+
+    fun checkProgressStatus() {
+        _showProgress.value = repo.isLoading.value != true
+        doneProgress()
+    }
+
+    private fun doneProgress() {
+        _showProgress.value = repo.isLoading.value != true
+        _showProgress.value = false
+    }
 
 
     //COMPLETE: Create function to get address from individual fields
@@ -48,11 +60,13 @@ class RepresentativeViewModel(private val dataSource: ElectionDao) : ViewModel()
     fun fetchReps(address: String) {
 
         viewModelScope.launch {
+            _showProgress.postValue(true)
             _foundRepsResponse.value = _userAddress.value?.let { repo.getReps(it) }
         }
         val offices = _foundRepsResponse.value?.offices
         val officials = _foundRepsResponse.value?.officials
         _representatives.value = offices?.flatMap { office -> office.getRepresentatives(officials!!) }
+        if (_representatives.value != null) _showProgress.postValue(false)
     }
 
 

@@ -16,17 +16,23 @@ class CivicRepository(private val electionDao: ElectionDao) {
     val electionList: LiveData<List<Election>?> = electionDao.getElections()
     val savedElectionList: LiveData<List<Election>?> = electionDao.getSavedElections()
 
+
     //voter info
     var voterInfo = MutableLiveData<VoterInfoResponse>()
     var reps = MutableLiveData<RepresentativeResponse?>()
-
+    var isLoading = MutableLiveData<Boolean>()
     //refresh election content
     suspend fun refreshElection() {
         try {
             withContext(Dispatchers.IO) {
                 Timber.d("Election network refresh called")
-                val networkResult = CivicsApi.retrofitService.getElectionsAsync().await()
-                electionDao.retrieveElections(networkResult.elections)
+                val networkResult = CivicsApi.retrofitService.getElectionsAsync()
+
+//                if (networkResult.isActive) {
+//                    isLoading.postValue(true)
+//                }
+
+                electionDao.retrieveElections(networkResult.await().elections)
                 Timber.d("Election network refresh. value -> $networkResult")
             }
         } catch (error: Exception) {
@@ -53,8 +59,12 @@ class CivicRepository(private val electionDao: ElectionDao) {
         try {
             withContext(Dispatchers.IO) {
                 val response = CivicsApi.retrofitService
-                        .getVoterInfoAsync(address, electionId).await()
-                voterInfo.postValue(response)
+                        .getVoterInfoAsync(address, electionId)
+                if (response.isActive) {
+                    isLoading.postValue(true)
+                }
+                voterInfo.postValue(response.await())
+
                 return@withContext voterInfo.value
             }
         } catch (error: Exception) {
